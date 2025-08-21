@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Creative Suite Team">
+    <link rel="icon" type="image/png" href="./assets/logo.png"/>
+    <meta name="description" content="AI-powered digital whiteboard for creative collaboration - Powered by Adobe Toolkit">
+    <title>AI Whiteboard - Powered by Adobe Toolkit</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Adobe+Clean:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="js/html2canvas.js"></script>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="adobe-header">
+      <div class="powered-by">Powered by Adobe Toolkit</div>
+      <div class="app-title">AI Whiteboard</div>
+      <div class="header-actions">
+        <span class="version-badge">v2.0</span>
+      </div>
+    </div>
+
+    <div class="tools-container">
+      <div class="tools-content">
+        <!-- Drawing Tools Group -->
+        <div class="tool-group">
+          <div class="tool active-tool" id="pen" title="Drawing Tool (D)">
+            <img src="./assets/Black_Pencil.svg" alt="Drawing Tool" />
+            <div class="tool-options hide">
+              <div class="pen-size">
+                <label for="pensize" class="sr-only">Pen Size</label>
+                <input type="range" id="pensize" value="2" min="1" max="40" />
+              </div>
+              <div class="pen-colors">
+                <div class="black" title="Black"></div>
+                <div class="purple" title="Purple"></div>
+                <div class="blue" title="Blue"></div>
+                <div class="green" title="Green"></div>
+                <div class="red" title="Red"></div>
+              </div>
+            </div>
+          </div>
+          <div class="tool" id="eraser" title="Eraser Tool (E)">
+            <img src="./assets/Eraser.svg" alt="Eraser Tool" />
+            <div class="tool-options hide">
+              <div class="eraser-size">
+                <label for="erasersize" class="sr-only">Eraser Size</label>
+                <input type="range" id="erasersize" value="5" min="1" max="40" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-separator"></div>
+
+        <!-- History Tools Group -->
+        <div class="tool-group">
+          <div class="tool" id="undo" title="Undo (Ctrl+Z)">
+            <img src="./assets/Undo.svg" alt="Undo" />
+          </div>
+          <div class="tool" id="redo" title="Redo (Ctrl+Y)">
+            <img src="./assets/Redo.svg" alt="Redo" />
+          </div>
+        </div>
+
+        <div class="tool-separator"></div>
+
+        <!-- Content Tools Group -->
+        <div class="tool-group">
+          <div class="tool" id="sticky" title="Add Sticky Note (N)">
+            <img src="./assets/StickyNote.svg" alt="Add Note" />
+          </div>
+          <div class="tool" id="photo" title="Add Image (I)">
+            <img src="./assets/Photo.svg" alt="Add Image" />
+            <input type="file" class="hide" name="" id="photo-upload" accept="image/*" />
+          </div>
+        </div>
+
+        <div class="tool-separator"></div>
+
+        <!-- Export Tools Group -->
+        <div class="tool-group">
+          <div class="tool" id="download" title="Export Canvas (Ctrl+S)">
+            <img src="./assets/Download.svg" alt="Export Canvas" />
+          </div>
+        </div>
+
+        <div class="tool-separator"></div>
+
+        <!-- AI Tools Group -->
+        <div class="tool-group">
+          <div class="tool ai-tool" id="aiShape" title="AI Shape Recognition (A)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <circle cx="12" cy="7" r="2" fill="#00ff88"/>
+            </svg>
+          </div>
+          <div class="tool ai-tool" id="aiText" title="AI Text Generator (T)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="16" cy="9" r="2" fill="#00ff88"/>
+            </svg>
+          </div>
+          <div class="tool ai-tool" id="aiSuggest" title="AI Suggestions (S)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 1V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 21V23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M4.22 4.22L5.64 5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M18.36 18.36L19.78 19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M1 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M21 12H23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M4.22 19.78L5.64 18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="12" cy="12" r="1" fill="#00ff88"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="drawing-container">
+      <canvas id="canvas"></canvas>
+      <div class="canvas-status" id="canvasStatus">
+        Ready to create
+      </div>
+      
+      <!-- AI Panel -->
+      <div class="ai-panel hide" id="aiPanel">
+        <div class="ai-panel-header">
+          <span class="ai-title">AI Assistant</span>
+          <button class="ai-close" id="aiClose">&times;</button>
+        </div>
+        <div class="ai-panel-content">
+          <div class="ai-feature" id="aiShapeFeature">
+            <h4>Shape Recognition</h4>
+            <p>Draw any shape and AI will perfect it for you</p>
+            <button class="ai-btn" id="activateShapeAI">Activate Shape AI</button>
+          </div>
+          <div class="ai-feature" id="aiTextFeature">
+            <h4>Smart Text Generation</h4>
+            <input type="text" placeholder="Enter a topic..." id="aiTextInput" />
+            <button class="ai-btn" id="generateText">Generate Ideas</button>
+            <div class="ai-result" id="textResult"></div>
+          </div>
+          <div class="ai-feature" id="aiSuggestFeature">
+            <h4>Drawing Suggestions</h4>
+            <p>Get AI-powered suggestions for your canvas</p>
+            <button class="ai-btn" id="getSuggestions">Get Suggestions</button>
+            <div class="ai-result" id="suggestionResult"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/script.js"></script>
+    <script src="./js/tools.js"></script>
+    <script src="./js/sticky.js"></script>
+    <script src="./js/img.js"></script>
+    <script src="./js/drawingTool.js"></script>
+    <script src="./js/ai-features.js"></script>
+  </body>
+</html>
